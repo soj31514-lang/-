@@ -1,20 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-kr-serif: "Noto Serif KR", serif;
+  
+  --color-primary: #1B4332; /* Deep Forest Green */
+  --color-primary-light: #D8E2DC;
+  --color-accent: #BC6C25; /* Warm Earth Tone */
 }
 
 :root {
-  --primary: #2E7D32;
-  --primary-light: #A5D6A7;
+  --primary: #1B4332;
+  --primary-light: #D8E2DC;
+  --accent: #BC6C25;
+  --bg-warm: #FDFCF8;
 }
 
 body {
-  @apply bg-white text-slate-900 font-sans;
+  @apply bg-[#FDFCF8] text-slate-800 font-sans selection:bg-primary/20 selection:text-primary;
 }
 
 .font-serif {
   font-family: var(--font-serif);
+}
+
+.font-kr-serif {
+  font-family: var(--font-kr-serif);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F1F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C1C1C1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
