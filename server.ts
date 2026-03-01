@@ -62,6 +62,7 @@ seedSettings.run("contact_phone", "02-1234-5678");
 seedSettings.run("contact_email", "hello@missioncom.org");
 seedSettings.run("show_contact", "true");
 seedSettings.run("show_email", "true");
+seedSettings.run("show_bank_info", "true");
 
 // Seed default ministries if empty
 const ministryCount = db.prepare("SELECT COUNT(*) as count FROM ministries").get() as any;
@@ -121,7 +122,10 @@ async function startServer() {
     const update = db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)");
     const transaction = db.transaction((items) => {
       for (const [key, value] of Object.entries(items)) {
-        update.run(key, value);
+        // SQLite3 can only bind numbers, strings, bigints, buffers, and null
+        // Convert booleans to strings
+        const bindValue = typeof value === 'boolean' ? String(value) : value;
+        update.run(key, bindValue);
       }
     });
     transaction(settings);
