@@ -77,6 +77,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
     document.documentElement.style.setProperty('--primary', settings.primary_color);
     document.documentElement.style.setProperty('--primary-light', settings.secondary_color);
     document.body.style.fontFamily = settings.font_family === 'serif' ? '"Noto Serif KR", serif' : '"Inter", sans-serif';
+    document.title = settings.site_name === '미션컴 (MissionCom)' ? '미션컴 선교회입니다.' : settings.site_name;
   }, [settings]);
 
   const updateSettings = async (newSettings: Partial<SiteSettings>) => {
