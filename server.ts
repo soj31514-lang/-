@@ -62,7 +62,6 @@ seedSettings.run("contact_phone", "02-1234-5678");
 seedSettings.run("contact_email", "hello@missioncom.org");
 seedSettings.run("show_contact", "true");
 seedSettings.run("show_email", "true");
-seedSettings.run("show_bank_info", "true");
 
 // Seed default ministries if empty
 const ministryCount = db.prepare("SELECT COUNT(*) as count FROM ministries").get() as any;
@@ -101,7 +100,7 @@ async function startServer() {
   app.post("/api/login", (req, res) => {
     const { password } = req.body;
     // Simple hardcoded password for demo purposes
-    if (password === "144000") {
+    if (password === "tlsgkrtodcntn08!!") {
       res.json({ success: true, token: "admin-token-xyz" });
     } else {
       res.status(401).json({ success: false, message: "비밀번호가 일치하지 않습니다." });
@@ -117,11 +116,23 @@ async function startServer() {
     res.json(settingsMap);
   });
 
+  const ALLOWED_SETTINGS = [
+    'site_name', 'primary_color', 'secondary_color', 'font_family', 'logo_url',
+    'intro_title', 'intro_subtitle', 'intro_content', 'intro_quote', 'intro_image_url',
+    'contact_address', 'contact_phone', 'contact_email', 'show_contact', 'show_email',
+    'social_instagram', 'social_youtube'
+  ];
+
   app.post("/api/settings", (req, res) => {
     const { settings } = req.body;
+    if (!settings || typeof settings !== 'object') {
+      return res.status(400).json({ success: false, message: "Invalid settings data" });
+    }
     const update = db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)");
     const transaction = db.transaction((items) => {
       for (const [key, value] of Object.entries(items)) {
+        if (!ALLOWED_SETTINGS.includes(key)) continue;
+        if (value === undefined) continue;
         // SQLite3 can only bind numbers, strings, bigints, buffers, and null
         // Convert booleans to strings
         const bindValue = typeof value === 'boolean' ? String(value) : value;

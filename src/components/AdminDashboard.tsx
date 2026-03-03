@@ -69,25 +69,25 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   }, []);
 
   const fetchHistory = async () => {
-    const res = await fetch('/api/history');
+    const res = await fetch(`/api/history?t=${Date.now()}`);
     const data = await res.json();
     setHistory(data);
   };
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/posts');
+    const res = await fetch(`/api/posts?t=${Date.now()}`);
     const data = await res.json();
     setPosts(data);
   };
 
   const fetchMinistries = async () => {
-    const res = await fetch('/api/ministries');
+    const res = await fetch(`/api/ministries?t=${Date.now()}`);
     const data = await res.json();
     setMinistries(data);
   };
 
   const fetchPartners = async () => {
-    const res = await fetch('/api/partners');
+    const res = await fetch(`/api/partners?t=${Date.now()}`);
     const data = await res.json();
     setPartners(data);
   };
@@ -1091,42 +1091,6 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                       </div>
                     </div>
 
-                    {/* Bank Info */}
-                    <div className="bg-slate-50 p-6 rounded-2xl space-y-4">
-                      <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <CreditCard size={14} /> 후원 계좌 정보
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500">은행명</label>
-                          <input 
-                            type="text" 
-                            value={localContact.bank_name}
-                            onChange={(e) => setLocalContact({ ...localContact, bank_name: e.target.value })}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500">계좌번호</label>
-                          <input 
-                            type="text" 
-                            value={localContact.bank_account}
-                            onChange={(e) => setLocalContact({ ...localContact, bank_account: e.target.value })}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500">예금주</label>
-                          <input 
-                            type="text" 
-                            value={localContact.bank_owner}
-                            onChange={(e) => setLocalContact({ ...localContact, bank_owner: e.target.value })}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
                     {/* Social Links */}
                     <div className="bg-slate-50 p-6 rounded-2xl space-y-4">
                       <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
@@ -1148,15 +1112,6 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                             type="text" 
                             value={localContact.social_youtube}
                             onChange={(e) => setLocalContact({ ...localContact, social_youtube: e.target.value })}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500">Facebook</label>
-                          <input 
-                            type="text" 
-                            value={localContact.social_facebook}
-                            onChange={(e) => setLocalContact({ ...localContact, social_facebook: e.target.value })}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
                           />
                         </div>

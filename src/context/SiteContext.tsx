@@ -16,13 +16,8 @@ export interface SiteSettings {
   contact_email: string;
   show_contact: boolean;
   show_email: boolean;
-  show_bank_info: boolean;
-  bank_name: string;
-  bank_account: string;
-  bank_owner: string;
   social_instagram: string;
   social_youtube: string;
-  social_facebook: string;
 }
 
 interface SiteContextType {
@@ -50,22 +45,24 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
     contact_email: 'hello@missioncom.org',
     show_contact: true,
     show_email: true,
-    show_bank_info: true,
-    bank_name: '우리은행',
-    bank_account: '1002-123-456789',
-    bank_owner: '미션컴',
     social_instagram: 'https://instagram.com',
     social_youtube: 'https://youtube.com',
-    social_facebook: 'https://facebook.com',
   });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/settings')
+    fetch(`/api/settings?t=${Date.now()}`)
       .then(res => res.json())
       .then(data => {
         if (Object.keys(data).length > 0) {
-          setSettings(prev => ({ ...prev, ...data }));
+          // Parse boolean strings from SQLite
+          const parsedData = { ...data };
+          ['show_contact', 'show_email'].forEach(key => {
+            if (parsedData[key] !== undefined) {
+              parsedData[key] = parsedData[key] === 'true';
+            }
+          });
+          setSettings(prev => ({ ...prev, ...parsedData }));
         }
         setIsLoading(false);
       })

@@ -40,25 +40,25 @@ export default function App() {
   }, []);
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/posts');
+    const res = await fetch(`/api/posts?t=${Date.now()}`);
     const data = await res.json();
     setPosts(data.slice(0, 3));
   };
 
   const fetchMinistries = async () => {
-    const res = await fetch('/api/ministries');
+    const res = await fetch(`/api/ministries?t=${Date.now()}`);
     const data = await res.json();
     setMinistries(data);
   };
 
   const fetchPartners = async () => {
-    const res = await fetch('/api/partners');
+    const res = await fetch(`/api/partners?t=${Date.now()}`);
     const data = await res.json();
     setPartners(data);
   };
 
   const fetchHistory = async () => {
-    const res = await fetch('/api/history');
+    const res = await fetch(`/api/history?t=${Date.now()}`);
     const data = await res.json();
     setHistory(data);
   };
@@ -81,7 +81,6 @@ export default function App() {
     { name: '사역 안내', href: '#ministry' },
     { name: '협력 기관', href: '#partners' },
     { name: '커뮤니티', href: '#community' },
-    { name: '후원 안내', href: '#support' },
   ];
 
   return (
@@ -475,67 +474,13 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        {/* Support Section */}
-        <section id="support" className="py-32 bg-primary text-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-20 items-center">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-8 font-kr-serif leading-tight">
-                  여러분의 기도가 <br />
-                  선교지의 희망이 됩니다
-                </h2>
-                <p className="text-xl text-white/70 mb-12 leading-relaxed">
-                  미션컴의 모든 사역은 후원자분들의 헌신으로 이루어집니다. 
-                  보내는 선교사로서 열방을 향한 하나님의 마음에 동참해 주세요.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <button className="px-10 py-4 bg-white text-primary rounded-full font-bold text-lg hover:shadow-2xl transition-all">
-                    정기 후원 신청하기
-                  </button>
-                  <button className="px-10 py-4 border border-white/30 rounded-full font-bold text-lg hover:bg-white/10 transition-all">
-                    일시 후원하기
-                  </button>
-                </div>
-              </div>
-              
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-12 rounded-[40px]">
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                    <Heart size={24} className="text-white" />
-                  </div>
-                  <h4 className="text-2xl font-bold font-kr-serif">후원 계좌 안내</h4>
-                </div>
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end border-b border-white/10 pb-6">
-                    <div>
-                      <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-1">General Support</p>
-                      <span className="text-lg font-bold">국민은행 (미션컴)</span>
-                    </div>
-                    <span className="text-2xl font-serif font-bold text-primary-light">123456-01-123456</span>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-1">Global Project</p>
-                      <span className="text-lg font-bold">{settings.bank_name} ({settings.bank_owner})</span>
-                    </div>
-                    <span className="text-2xl font-serif font-bold text-primary-light">{settings.bank_account}</span>
-                  </div>
-                </div>
-                <p className="mt-10 text-white/40 text-sm leading-relaxed">
-                  * 모든 후원금은 지정된 사역에 투명하게 사용되며, 연말정산 시 기부금 영수증 발급이 가능합니다.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
       <footer className="bg-white py-24 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-12 gap-16 mb-20">
-            <div className="md:col-span-6">
+            <div className="md:col-span-3">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 flex items-center justify-center">
                   {settings.logo_url ? (
@@ -557,32 +502,33 @@ export default function App() {
               <div className="flex gap-6">
                 <a href={settings.social_instagram} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors"><Instagram size={24} /></a>
                 <a href={settings.social_youtube} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors"><Youtube size={24} /></a>
-                <a href={settings.social_facebook} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors"><Facebook size={24} /></a>
               </div>
             </div>
             
+            {settings.show_email && (
+              <div className="md:col-span-2">
+                <h4 className="text-sm font-bold text-slate-900 mb-8 uppercase tracking-widest">Inquiry</h4>
+                <button 
+                  onClick={() => window.location.href = `mailto:${settings.contact_email}`}
+                  className="flex items-center gap-3 bg-primary text-white px-6 py-3 rounded-xl hover:opacity-90 transition-opacity font-bold text-sm shadow-lg shadow-primary/20"
+                >
+                  <Mail size={18} /> 
+                  <span>이메일 문의하기</span>
+                </button>
+              </div>
+            )}
+
             {settings.show_contact && (
               <div className="md:col-span-3">
                 <h4 className="text-sm font-bold text-slate-900 mb-8 uppercase tracking-widest">Contact</h4>
                 <ul className="space-y-4 text-slate-500">
-                  {settings.show_email && (
-                    <li className="flex items-center gap-3">
-                      <button 
-                        onClick={() => window.location.href = `mailto:${settings.contact_email}`}
-                        className="flex items-center gap-3 hover:text-primary transition-colors group"
-                      >
-                        <Mail size={18} className="text-primary/50 group-hover:text-primary transition-colors" /> 
-                        <span>이메일 문의하기</span>
-                      </button>
-                    </li>
-                  )}
                   <li className="flex items-center gap-3"><Phone size={18} className="text-primary/50" /> {settings.contact_phone}</li>
                   <li className="flex items-start gap-3"><MapPin size={18} className="mt-1 text-primary/50" /> {settings.contact_address}</li>
                 </ul>
               </div>
             )}
             
-            <div className="md:col-span-3">
+            <div className="md:col-span-2">
               <h4 className="text-sm font-bold text-slate-900 mb-8 uppercase tracking-widest">Navigation</h4>
               <ul className="space-y-4 text-slate-500">
                 {navItems.map(item => (
