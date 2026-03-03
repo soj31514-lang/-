@@ -18,6 +18,7 @@ export interface SiteSettings {
   show_email: boolean;
   social_instagram: string;
   social_youtube: string;
+  social_blog: string;
 }
 
 interface SiteContextType {
@@ -47,6 +48,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
     show_email: true,
     social_instagram: 'https://instagram.com',
     social_youtube: 'https://youtube.com',
+    social_blog: 'https://blog.naver.com',
   });
   const [isLoading, setIsLoading] = useState(true);
 

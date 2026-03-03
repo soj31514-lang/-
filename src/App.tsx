@@ -502,6 +502,7 @@ export default function App() {
               <div className="flex gap-6">
                 <a href={settings.social_instagram} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors"><Instagram size={24} /></a>
                 <a href={settings.social_youtube} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors"><Youtube size={24} /></a>
+                <a href={settings.social_blog} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors" title="Blog"><BookOpen size={24} /></a>
               </div>
             </div>
             

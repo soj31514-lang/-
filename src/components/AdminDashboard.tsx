@@ -1115,6 +1115,15 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
                           />
                         </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold text-slate-500">Blog</label>
+                          <input 
+                            type="text" 
+                            value={localContact.social_blog}
+                            onChange={(e) => setLocalContact({ ...localContact, social_blog: e.target.value })}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-white"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

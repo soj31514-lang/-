@@ -62,6 +62,7 @@ seedSettings.run("contact_phone", "02-1234-5678");
 seedSettings.run("contact_email", "hello@missioncom.org");
 seedSettings.run("show_contact", "true");
 seedSettings.run("show_email", "true");
+seedSettings.run("social_blog", "https://blog.naver.com");
 
 // Seed default ministries if empty
 const ministryCount = db.prepare("SELECT COUNT(*) as count FROM ministries").get() as any;
@@ -120,7 +121,7 @@ async function startServer() {
     'site_name', 'primary_color', 'secondary_color', 'font_family', 'logo_url',
     'intro_title', 'intro_subtitle', 'intro_content', 'intro_quote', 'intro_image_url',
     'contact_address', 'contact_phone', 'contact_email', 'show_contact', 'show_email',
-    'social_instagram', 'social_youtube'
+    'social_instagram', 'social_youtube', 'social_blog'
   ];
 
   app.post("/api/settings", (req, res) => {
