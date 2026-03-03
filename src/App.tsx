@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import AdminDashboard from './components/AdminDashboard';
 import LoginModal from './components/LoginModal';
 
+// Main Application Component
 export default function App() {
   const { settings } = useSite();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
