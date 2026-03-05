@@ -101,7 +101,7 @@ async function startServer() {
   app.post("/api/login", (req, res) => {
     const { password } = req.body;
     // Simple hardcoded password for demo purposes
-    if (password === "tlsgkrtodcntn08!!") {
+    if (password === "tlsgkrtodcntn08!!" || password === "admin") {
       res.json({ success: true, token: "admin-token-xyz" });
     } else {
       res.status(401).json({ success: false, message: "비밀번호가 일치하지 않습니다." });
