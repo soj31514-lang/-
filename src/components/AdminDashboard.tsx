@@ -69,27 +69,47 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   }, []);
 
   const fetchHistory = async () => {
-    const res = await fetch(`/api/history?t=${Date.now()}`);
-    const data = await res.json();
-    setHistory(data);
+    try {
+      const res = await fetch(`/api/history?t=${Date.now()}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setHistory(data);
+    } catch (err) {
+      console.error('Failed to fetch history:', err);
+    }
   };
 
   const fetchPosts = async () => {
-    const res = await fetch(`/api/posts?t=${Date.now()}`);
-    const data = await res.json();
-    setPosts(data);
+    try {
+      const res = await fetch(`/api/posts?t=${Date.now()}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setPosts(data);
+    } catch (err) {
+      console.error('Failed to fetch posts:', err);
+    }
   };
 
   const fetchMinistries = async () => {
-    const res = await fetch(`/api/ministries?t=${Date.now()}`);
-    const data = await res.json();
-    setMinistries(data);
+    try {
+      const res = await fetch(`/api/ministries?t=${Date.now()}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setMinistries(data);
+    } catch (err) {
+      console.error('Failed to fetch ministries:', err);
+    }
   };
 
   const fetchPartners = async () => {
-    const res = await fetch(`/api/partners?t=${Date.now()}`);
-    const data = await res.json();
-    setPartners(data);
+    try {
+      const res = await fetch(`/api/partners?t=${Date.now()}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setPartners(data);
+    } catch (err) {
+      console.error('Failed to fetch partners:', err);
+    }
   };
 
   const handleAddPost = async () => {
