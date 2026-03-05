@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSite } from '../context/SiteContext';
 import { Settings, Layout, FileText, Plus, Trash2, Save, Palette, Type, Image as ImageIcon, X, Upload, Heart, Users, LogOut, Phone, Mail, MapPin, CreditCard, Share2, Clock } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Post {
   id: number;
@@ -69,27 +69,47 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   }, []);
 
   const fetchHistory = async () => {
-    const res = await fetch(`/api/history?t=${Date.now()}`);
-    const data = await res.json();
-    setHistory(data);
+    try {
+      const res = await fetch(`/api/history?t=${Date.now()}`);
+      if (!res.ok) throw new Error('Failed to fetch history');
+      const data = await res.json();
+      setHistory(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchPosts = async () => {
-    const res = await fetch(`/api/posts?t=${Date.now()}`);
-    const data = await res.json();
-    setPosts(data);
+    try {
+      const res = await fetch(`/api/posts?t=${Date.now()}`);
+      if (!res.ok) throw new Error('Failed to fetch posts');
+      const data = await res.json();
+      setPosts(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchMinistries = async () => {
-    const res = await fetch(`/api/ministries?t=${Date.now()}`);
-    const data = await res.json();
-    setMinistries(data);
+    try {
+      const res = await fetch(`/api/ministries?t=${Date.now()}`);
+      if (!res.ok) throw new Error('Failed to fetch ministries');
+      const data = await res.json();
+      setMinistries(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchPartners = async () => {
-    const res = await fetch(`/api/partners?t=${Date.now()}`);
-    const data = await res.json();
-    setPartners(data);
+    try {
+      const res = await fetch(`/api/partners?t=${Date.now()}`);
+      if (!res.ok) throw new Error('Failed to fetch partners');
+      const data = await res.json();
+      setPartners(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleAddPost = async () => {
@@ -249,10 +269,16 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   );
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 backdrop-blur-sm"
+    >
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
         className="bg-white w-full max-w-4xl h-[80vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col"
       >
         {/* Header */}
@@ -1134,6 +1160,6 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </motion.div>
-    </div>
-  );
+  </motion.div>
+);
 }

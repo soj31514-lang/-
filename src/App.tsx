@@ -6,7 +6,7 @@ import {
   ArrowRight, Mail, Phone, MapPin, Settings as SettingsIcon,
   Quote, Compass, BookOpen, Sun, LogOut, Clock
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AdminDashboard from './components/AdminDashboard';
 import LoginModal from './components/LoginModal';
 
@@ -561,6 +561,7 @@ export default function App() {
       <AnimatePresence>
         {isLoginOpen && (
           <LoginModal 
+            key="login-modal"
             onLogin={(token) => {
               setIsLoggedIn(true);
               setIsLoginOpen(false);
@@ -572,7 +573,10 @@ export default function App() {
           />
         )}
         {isAdminOpen && (
-          <AdminDashboard onClose={() => setIsAdminOpen(false)} />
+          <AdminDashboard 
+            key="admin-dashboard" 
+            onClose={() => setIsAdminOpen(false)} 
+          />
         )}
       </AnimatePresence>
     </div>

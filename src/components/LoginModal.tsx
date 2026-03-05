@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Lock, X, ShieldCheck, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 interface LoginModalProps {
@@ -40,10 +40,16 @@ export default function LoginModal({ onLogin, onClose }: LoginModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-md">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-md"
+    >
       <motion.div 
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
         className="bg-white w-full max-w-md rounded-[32px] shadow-2xl overflow-hidden"
       >
         <div className="p-8 border-b bg-slate-50 flex items-center justify-between">
@@ -117,6 +123,6 @@ export default function LoginModal({ onLogin, onClose }: LoginModalProps) {
           </p>
         </form>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
